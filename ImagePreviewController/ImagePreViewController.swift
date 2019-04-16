@@ -98,7 +98,7 @@ public class ImagePreViewController: UIViewController {
             button.layer.borderColor = UIColor.white.cgColor
             
             button.layer.cornerRadius = side / 2.0
-            button.autoresizingMask = [UIViewAutoresizing.flexibleTopMargin,UIViewAutoresizing.flexibleLeftMargin,UIViewAutoresizing.flexibleRightMargin]
+            button.autoresizingMask = [UIView.AutoresizingMask.flexibleTopMargin,UIView.AutoresizingMask.flexibleLeftMargin,UIView.AutoresizingMask.flexibleRightMargin]
             view.addSubview(button)
    
         }
@@ -265,7 +265,7 @@ extension ImagePreViewController{
         
     }
 
-    func onDeleteCurrentImage() {
+    @objc func onDeleteCurrentImage() {
         //防止点击过快动画未完成
         var nowTimestamp = CACurrentMediaTime()
         if nowTimestamp - ImagePreViewController.lastTimestamp > 0.5{
@@ -328,7 +328,7 @@ extension ImagePreViewController{
     }
     
     
-    func onCancel() {
+    @objc func onCancel() {
         if isChildController {
             return
         }
@@ -365,7 +365,7 @@ extension ImagePreViewController{
     func createImageByFactory() -> UIImageView {
         let imageView = UIImageView(frame: view.bounds)
         imageView.contentMode = .scaleAspectFit
-        imageView.autoresizingMask = [UIViewAutoresizing.flexibleWidth,UIViewAutoresizing.flexibleHeight]
+        imageView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth,UIView.AutoresizingMask.flexibleHeight]
         return imageView
     }
     func replaceDataImageWithIdex(_ image:UIImageView,index:Int) {
@@ -387,7 +387,7 @@ extension ImagePreViewController{
 extension ImagePreViewController{
     
     
-    func onPinch(_ pinch:UIPinchGestureRecognizer) {
+    @objc func onPinch(_ pinch:UIPinchGestureRecognizer) {
         let scale = pinch.scale
         let velocity = pinch.velocity
         switch pinch.state {
@@ -425,7 +425,7 @@ extension ImagePreViewController{
         }
     }
     
-    func onPan(_ pan:UIPanGestureRecognizer) {
+    @objc func onPan(_ pan:UIPanGestureRecognizer) {
         let point = pan.location(in: self.view)
         switch pan.state {
         case .began:
@@ -524,7 +524,7 @@ extension ImagePreViewController{
         
     }
 
-    func onDoubleTap(_ tap:UITapGestureRecognizer) {
+    @objc func onDoubleTap(_ tap:UITapGestureRecognizer) {
         cancelTap = true
         beganFrame = currentImageView?.frame ?? CGRect.zero
         if beganFrame.width == view.frame.width {
@@ -550,7 +550,7 @@ extension ImagePreViewController{
     }
     
     
-    func onTap(_ tap:UITapGestureRecognizer) {
+    @objc func onTap(_ tap:UITapGestureRecognizer) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { 
             if self.cancelTap{
@@ -576,7 +576,7 @@ extension ImagePreViewController{
         
     }
     
-    func onLongPress(_ longPress:UILongPressGestureRecognizer){
+    @objc func onLongPress(_ longPress:UILongPressGestureRecognizer){
         
         if longPress.state == .began{
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -651,7 +651,7 @@ extension ImagePreViewController{
     }
     
     //Swift实现:
-    func image(image:UIImage,didFinishSavingWithError error:NSError?,contextInfo:AnyObject) {
+    @objc func image(image:UIImage,didFinishSavingWithError error:NSError?,contextInfo:AnyObject) {
         
         if error != nil {
             
